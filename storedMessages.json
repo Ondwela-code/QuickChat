@@ -1,0 +1,30 @@
+[
+  {
+    "messageID": "0000117936",
+    "numMessage": 1,
+    "recipient": "+27724440769",
+    "message": "i love you",
+    "messageHash": "00:1:IYOU"
+  },
+  {
+    "messageID": "0000556897",
+    "numMessage": 2,
+    "recipient": "\u003d27724440769",
+    "message": "HOW ARE YOU",
+    "messageHash": "00:2:HOWYOU"
+  },
+  {
+    "messageID": "0000134606",
+    "numMessage": 3,
+    "recipient": "+27724440769",
+    "message": "I A GOOD",
+    "messageHash": "00:3:IGOOD"
+  },
+  {
+    "messageID": "0000544293",
+    "numMessage": 4,
+    "recipient": "+27724440769",
+    "message": "HOW ARE YOU",
+    "messageHash": "00:4:HOWYOU"
+  }
+]
