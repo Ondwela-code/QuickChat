@@ -19,7 +19,7 @@ import java.util.*;
  * @author Ondwela Mathobo
  */
 public class Message {
-
+// JSON declarations
     static ArrayList<Message> sentMessages = new ArrayList<>();
     private static ArrayList<Message> storedMessages = new ArrayList<>();
     private static int totalMessagesSent = 0;
@@ -31,6 +31,8 @@ public class Message {
       //  loadStoredMessages();
 
    // }
+    
+    //Main menu after successfully logging in
   public static void main(String[] args) {
     loadStoredMessages();
     Scanner sc = new Scanner(System.in);
@@ -74,7 +76,8 @@ if (msg.checkMessageLength()) {
                 break;
         }
     } while (choice != 3);
-}  
+} 
+  //Properties of each message
     private String messageID;
     private int numMessage;
     private String recipient;
@@ -92,17 +95,17 @@ if (msg.checkMessageLength()) {
 
     }
     
-
+//generates a random 10 digit number
     private String generateMessageID() {
         Random rand = new Random();
         return String.format("%010d", rand.nextInt(1000000));
     }
-
+//checks if message ID is not longer than 10 digits
     public boolean checkMessageID() {
         return messageID != null && messageID.length() <= 10;
 
     }
-
+//checks if cellphone starts with +27  and is not more than 10 characters
     public String checkRecipientCell() {
         if (recipient == null) {
             return "Cell number is incorrectly formatted";
@@ -112,7 +115,7 @@ if (msg.checkMessageLength()) {
         }
         return "Cell number incorrectly formatted";
     }
-
+//doesnt work but its purpose is to hash messages
     public String createMessageHash() {
         String idStart = messageID.substring(0, 2);
         String[] words = message.trim().split("\\s+");
@@ -121,7 +124,7 @@ if (msg.checkMessageLength()) {
         this.messageHash = idStart + ":" + numMessage + ":" + firstWord + lastWord;
         return this.messageHash;
     }
-
+//the sending messages process
     public String SentMessage(java.util.Scanner sc) {
         System.out.println("\nMessage ready:");
         System.out.println("To:" + recipient);
@@ -151,7 +154,7 @@ if (msg.checkMessageLength()) {
 
         }
     }
-
+//output of processed messages
     public String printMessages() {
         return "Message ID:" + messageID + "\nMessage Hash:" + messageHash + "\nRecipient:"
                 + recipient + "\nMessage:" + message;
@@ -161,12 +164,12 @@ if (msg.checkMessageLength()) {
     public int returnTotalMessagess() {
         return sentMessages.size();
     }
-
+//stores messages
     public void storeMessage() {
         sentMessages.add(this);
         saveToJSON();
     }
-
+//checks if message length is no more than 250 characters
     public boolean checkMessageLength() {
         return message.length() <= 250;
     }
@@ -174,7 +177,7 @@ if (msg.checkMessageLength()) {
     public String getMessageID() {
         return messageID;
     }
-
+//saving to json
     private void saveToJSON() {
         try (FileWriter writer = new FileWriter(STORAGE_FILE)) {
             gson.toJson(sentMessages, writer);
@@ -182,7 +185,7 @@ if (msg.checkMessageLength()) {
             System.out.println("Error saving to JSON:" + e.getMessage());
         }
     }
-
+//retrieves sent messages so you can still see
     private static void loadStoredMessages() {
         try (FileReader reader = new FileReader(STORAGE_FILE)) {
             Type listType = new TypeToken<ArrayList<Message>>() {
