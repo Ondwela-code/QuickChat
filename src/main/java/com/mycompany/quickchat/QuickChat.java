@@ -35,7 +35,10 @@ public class QuickChat {
                     chatApp.registerUser();
                     break;
                 case 2:
-                    chatApp.loginUser();
+                   if (chatApp.loginUser()) {
+                       System.out.println("Welcome to QuickChat");
+                       com.mycompany.quickchat.Message.main(args);
+                   }
                     break;
                 case 3:
                     System.out.println("Goodbye");

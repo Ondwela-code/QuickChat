@@ -91,6 +91,7 @@ if (msg.checkMessageLength()) {
         this.messageHash = createMessageHash();
 
     }
+    
 
     private String generateMessageID() {
         Random rand = new Random();
@@ -121,7 +122,7 @@ if (msg.checkMessageLength()) {
         return this.messageHash;
     }
 
-    public String SentMessage(Scanner sc) {
+    public String SentMessage(java.util.Scanner sc) {
         System.out.println("\nMessage ready:");
         System.out.println("To:" + recipient);
         System.out.println("Message:" + message);

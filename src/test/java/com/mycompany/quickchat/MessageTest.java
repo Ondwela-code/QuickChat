@@ -4,7 +4,8 @@
  */
 package com.mycompany.quickchat;
 
-import java.util.Scanner;
+import com.mycompany.quickchat.Message;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,8 +46,7 @@ public class MessageTest {
         System.out.println("main");
         String[] args = null;
         Message.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -55,12 +55,13 @@ public class MessageTest {
     @Test
     public void testCheckMessageID() {
         System.out.println("checkMessageID");
-        Message instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkMessageID();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("getMessageID");
+    Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    
+    String expResult = "01:HITONIG"; // 01 + first 7 chars of HITONIGHT
+    String result = instance.getMessageID();
+    assertEquals(expResult, result); 
+        
     }
 
     /**
@@ -69,12 +70,12 @@ public class MessageTest {
     @Test
     public void testCheckRecipientCell() {
         System.out.println("checkRecipientCell");
-        Message instance = null;
-        String expResult = "";
-        String result = instance.checkRecipientCell();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Message valid = new Message("+27718693002", "Test", 1);
+    assertEquals("Cell phone number successfully captured.", valid.checkRecipientCell());
+    
+    Message invalid = new Message("08575975889", "Test", 2);
+    assertEquals("Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.", invalid.checkRecipientCell());
+       
     }
 
     /**
@@ -83,12 +84,11 @@ public class MessageTest {
     @Test
     public void testCreateMessageHash() {
         System.out.println("createMessageHash");
-        Message instance = null;
-        String expResult = "";
-        String result = instance.createMessageHash();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    String expResult = "00:HITONIGHT";
+    String result = instance.createMessageHash();
+    assertEquals(expResult, result);
+        
     }
 
     /**
@@ -96,14 +96,16 @@ public class MessageTest {
      */
     @Test
     public void testSentMessage() {
-        System.out.println("SentMessage");
-        Scanner sc = null;
-        Message instance = null;
-        String expResult = "";
-        String result = instance.SentMessage(sc);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+     Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    
+    // Test "send" option
+    String result1 = instance.SentMessage("send");
+    assertEquals("Message successfully sent.", result1);
+    
+    // Test "discard" option  
+    String result2 = instance.SentMessage("discard");
+    assertEquals("Message discarded.", result2);   
+        
     }
 
     /**
@@ -112,12 +114,12 @@ public class MessageTest {
     @Test
     public void testPrintMessages() {
         System.out.println("printMessages");
-        Message instance = null;
-        String expResult = "";
-        String result = instance.printMessages();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    instance.SentMessage("send"); // add a message first
+    
+    String result = instance.printMessages();
+    assertTrue(result.contains("+27718693002"));
+    assertTrue(result.contains("Hi Mike, can you join us for dinner tonight?"));
     }
 
     /**
@@ -126,12 +128,13 @@ public class MessageTest {
     @Test
     public void testReturnTotalMessagess() {
         System.out.println("returnTotalMessagess");
-        Message instance = null;
-        int expResult = 0;
-        int result = instance.returnTotalMessagess();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+         Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    instance.storeMessage(); // add one message first
+    
+    int expResult = 1;
+    int result = instance.returnTotalMessagess();
+    assertEquals(expResult, result);
+        
     }
 
     /**
@@ -140,10 +143,15 @@ public class MessageTest {
     @Test
     public void testStoreMessage() {
         System.out.println("storeMessage");
-        Message instance = null;
-        instance.storeMessage();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    
+    int before = Message.sentMessages.size();
+    instance.storeMessage();
+    int after = Message.sentMessages.size();
+    
+    assertEquals(before + 1, after);
+}
+        
     }
 
     /**
@@ -152,12 +160,17 @@ public class MessageTest {
     @Test
     public void testCheckMessageLength() {
         System.out.println("checkMessageLength");
-        Message instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkMessageLength();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      // Test case 1: under 250 chars - should pass
+    Message instance1 = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    boolean result1 = instance1.checkMessageLength();
+    assertTrue(result1);
+    
+    // Test case 2: over 250 chars - should fail
+    String longMsg = "a".repeat(260);
+    Message instance2 = new Message("+27718693002", longMsg, 2);
+    boolean result2 = instance2.checkMessageLength();
+    assertFalse(result2);  
+        
     }
 
     /**
@@ -166,12 +179,13 @@ public class MessageTest {
     @Test
     public void testGetMessageID() {
         System.out.println("getMessageID");
-        Message instance = null;
-        String expResult = "";
-        String result = instance.getMessageID();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+     Message instance = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 1);
+    
+    String expResult = "01:HITONIG"; // 01 + first 7 chars of HITONIGHT
+    String result = instance.getMessageID();
+    assertEquals(expResult, result);    
+        
+       
     }
     
-}
+
