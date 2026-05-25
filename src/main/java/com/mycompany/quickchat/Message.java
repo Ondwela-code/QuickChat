@@ -2,6 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+package com.mycompany.quickchat;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -17,17 +20,61 @@ import java.util.*;
  */
 public class Message {
 
-    private static ArrayList<Message> sentMessages = new ArrayList<>();
+    static ArrayList<Message> sentMessages = new ArrayList<>();
     private static ArrayList<Message> storedMessages = new ArrayList<>();
     private static int totalMessagesSent = 0;
     private static final String STORAGE_FILE = "storedMessages.json";
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     //Load from JSON when program starts
 
-    static {
-        loadStoredMessages();
+    //static {
+      //  loadStoredMessages();
 
-    }
+   // }
+  public static void main(String[] args) {
+    loadStoredMessages();
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Welcome to QuickChat");
+
+    int choice;
+    do {
+        System.out.println("\n1. Send Messages");
+        System.out.println("2. Show recently sent messages");
+        System.out.println("3. Quit");
+        System.out.print("Enter choice: ");
+        choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("How many messages? ");
+                int count = sc.nextInt();
+                sc.nextLine();
+                for (int i = 0; i < count; i++) {
+                    System.out.print("Recipient: ");
+                    String r = sc.nextLine();
+                    System.out.print("Message: ");
+                    String m = sc.nextLine();
+                  Message msg = new Message(r, m, sentMessages.size() + 1);
+
+if (msg.checkMessageLength()) {
+    msg.storeMessage();
+    System.out.println("Message sent!");
+} else {
+    System.out.println("Please enter a message of less than 250 characters.");
+}
+                }
+                break;
+                
+            case 2:
+                System.out.println("Coming soon");
+                break;
+                
+            case 3:
+                break;
+        }
+    } while (choice != 3);
+}  
     private String messageID;
     private int numMessage;
     private String recipient;
@@ -40,6 +87,7 @@ public class Message {
         this.message = message;
         this.numMessage = numMessage;
         this.messageID = generateMessageID();
+        
         this.messageHash = createMessageHash();
 
     }
@@ -149,4 +197,3 @@ public class Message {
     }
 
 }
-//testing github
