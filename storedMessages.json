@@ -26,5 +26,12 @@
     "recipient": "+27724440769",
     "message": "HOW ARE YOU",
     "messageHash": "00:4:HOWYOU"
+  },
+  {
+    "messageID": "1889957327",
+    "numMessage": 5,
+    "recipient": "+2745678900",
+    "message": "Hi how are you?",
+    "messageHash": "18:5:HIYOU?"
   }
 ]
