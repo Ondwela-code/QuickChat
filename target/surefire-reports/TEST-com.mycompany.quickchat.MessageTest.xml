@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mycompany.quickchat.MessageTest" time="0.188" tests="15" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mycompany.quickchat.MessageTest" time="0.193" tests="15" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="ZA"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Apache NetBeans\jdk\bin"/>
-    <property name="sun.java.command" value="C:\Users\Ondwela Mathobo\AppData\Local\Temp\surefire12606425625890874429\surefirebooter-20260611134421726_3.jar C:\Users\Ondwela Mathobo\AppData\Local\Temp\surefire12606425625890874429 2026-06-11T13-44-21_569-jvmRun1 surefire-20260611134421726_1tmp surefire_0-20260611134421726_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Ondwela Mathobo\AppData\Local\Temp\surefire10949253324507287444\surefirebooter-20260611152010624_3.jar C:\Users\Ondwela Mathobo\AppData\Local\Temp\surefire10949253324507287444 2026-06-11T15-20-10_449-jvmRun1 surefire-20260611152010624_1tmp surefire_0-20260611152010624_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="com.mycompany.quickchat.MessageTest"/>
     <property name="surefire.test.class.path" value="C:\Users\Ondwela Mathobo\OneDrive\Documents\NetBeansProjects\QuickChat\target\test-classes;C:\Users\Ondwela Mathobo\OneDrive\Documents\NetBeansProjects\QuickChat\target\classes;C:\Users\Ondwela Mathobo\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.3\junit-jupiter-5.10.3.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;C:\Users\Ondwela Mathobo\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Ondwela Mathobo\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\Ondwela Mathobo\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Ondwela Mathobo\AppData\Local\Temp\surefire12606425625890874429\surefirebooter-20260611134421726_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Ondwela Mathobo\AppData\Local\Temp\surefire10949253324507287444\surefirebooter-20260611152010624_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.2+10-LTS"/>
@@ -62,7 +62,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testReturnTotalMessagess" classname="com.mycompany.quickchat.MessageTest" time="0.09">
+  <testcase name="testReturnTotalMessagess" classname="com.mycompany.quickchat.MessageTest" time="0.087">
     <system-out><![CDATA[returnTotalMessagess
 ]]></system-out>
   </testcase>
@@ -70,7 +70,7 @@
     <system-out><![CDATA[deleteMessage
 ]]></system-out>
   </testcase>
-  <testcase name="testDisplayLongestMessage" classname="com.mycompany.quickchat.MessageTest" time="0.006">
+  <testcase name="testDisplayLongestMessage" classname="com.mycompany.quickchat.MessageTest" time="0.004">
     <system-out><![CDATA[displayLongestMessage
 ]]></system-out>
   </testcase>
@@ -78,11 +78,11 @@
     <system-out><![CDATA[searchByMessageID
 ]]></system-out>
   </testcase>
-  <testcase name="testStoreMessage" classname="com.mycompany.quickchat.MessageTest" time="0.003">
+  <testcase name="testStoreMessage" classname="com.mycompany.quickchat.MessageTest" time="0.002">
     <system-out><![CDATA[storeMessage
 ]]></system-out>
   </testcase>
-  <testcase name="testSentMessagesArrayPopulated" classname="com.mycompany.quickchat.MessageTest" time="0.005">
+  <testcase name="testSentMessagesArrayPopulated" classname="com.mycompany.quickchat.MessageTest" time="0.007">
     <system-out><![CDATA[sentMessagesArrayPopulated
 ]]></system-out>
   </testcase>
@@ -94,7 +94,7 @@
     <system-out><![CDATA[checkRecipientCell
 ]]></system-out>
   </testcase>
-  <testcase name="testGetMessageID" classname="com.mycompany.quickchat.MessageTest" time="0.002">
+  <testcase name="testGetMessageID" classname="com.mycompany.quickchat.MessageTest" time="0.001">
     <system-out><![CDATA[getMessageID
 ]]></system-out>
   </testcase>
@@ -102,7 +102,7 @@
     <system-out><![CDATA[displayReport
 ]]></system-out>
   </testcase>
-  <testcase name="testSearchByRecipient" classname="com.mycompany.quickchat.MessageTest" time="0.004">
+  <testcase name="testSearchByRecipient" classname="com.mycompany.quickchat.MessageTest" time="0.005">
     <system-out><![CDATA[searchByRecipient
 ]]></system-out>
   </testcase>
@@ -110,11 +110,11 @@
     <system-out><![CDATA[checkMessageLength
 ]]></system-out>
   </testcase>
-  <testcase name="testPrintMessages" classname="com.mycompany.quickchat.MessageTest" time="0.002">
+  <testcase name="testPrintMessages" classname="com.mycompany.quickchat.MessageTest" time="0.003">
     <system-out><![CDATA[printMessages
 ]]></system-out>
   </testcase>
-  <testcase name="testCreateMessageHash" classname="com.mycompany.quickchat.MessageTest" time="0.002">
+  <testcase name="testCreateMessageHash" classname="com.mycompany.quickchat.MessageTest" time="0.003">
     <system-out><![CDATA[createMessageHash
 ]]></system-out>
   </testcase>

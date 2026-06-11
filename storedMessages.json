@@ -1,18 +1,18 @@
 [
   {
-    "messageID": "2038130107",
+    "messageID": "2356334872",
     "numMessage": 1,
     "recipient": "+27718693002",
     "message": "Hi Mike, can you join us for dinner tonight?",
-    "messageHash": "20:1:HITONIGHT?",
+    "messageHash": "23:1:HITONIGHT?",
     "flag": "Sent"
   },
   {
-    "messageID": "8926892998",
+    "messageID": "6598225912",
     "numMessage": 3,
     "recipient": "+27718693002",
     "message": "Hi Mike, can you join us for dinner tonight?",
-    "messageHash": "89:3:HITONIGHT?",
+    "messageHash": "65:3:HITONIGHT?",
     "flag": "Stored"
   }
 ]
