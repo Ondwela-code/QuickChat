@@ -43,6 +43,7 @@ public class Message {
             System.out.println("\n1. Send Messages");
             System.out.println("2. Show recently sent messages");
             System.out.println("3. Quit");
+            System.out.println("4. Stored Messages");
             System.out.print("Enter choice: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -57,7 +58,7 @@ public class Message {
                         String r = sc.nextLine();
                         System.out.print("Message: ");
                         String m = sc.nextLine();
-                        Message msg = new Message(r, m, sentMessages.size() + 1);
+                        Message msg = new Message(r, m, sentMessages.size() + storedMessages.size()+disregardedMessages.size() +1);
 
                         // Check recipient cell format first
                         String cellCheck = msg.checkRecipientCell();
@@ -93,24 +94,196 @@ public class Message {
 
                         System.out.println(msg.SentMessage(action));
 
-                        // Print full message details after sending
-                        if (action.equals("send")) {
-                            System.out.println(msg.printMessages());
-                        }
+                        
                     }
                     // Display total messages sent after all messages processed
                     System.out.println("Total messages sent: " + totalMessagesSent);
                     break;
 
                 case 2:
-                    System.out.println("Coming Soon.");
+                    displayAllSentMessages();
                     break;
 
                 case 3:
+                    System.out.println("Goodbye");
                     break;
+                    
+                case 4:
+                    storedMessagesMenu(sc);
+                    break;
+                    
+                default:
+                    System.out.println("Invalid choice.");
             }
         } while (choice != 3);
     }
+    
+    // new menu method
+    private static void storedMessagesMenu(Scanner sc){
+        int subChoice;
+        do{
+            System.out.println("\n--- Stored Messages Menu ---");
+            System.out.println("a. Display all stored messages");
+            System.out.println("b. Display longest stored message");
+            System.out.println("c. Search by Message ID");
+            System.out.println("d. Search by recipient");
+            System.out.println("e. Delete a message using message hash");
+            System.out.println("f. Display report");
+            System.out.println("0. Back to main menu");
+            System.out.print("Choose option: ");
+            String input = sc.nextLine().trim().toLowerCase();
+            
+            switch (input){
+                case "a":
+                    displayStoredMessages();
+                    break;
+                case "b":
+                    System.out.println(displayLongestMessage());
+                    break;
+                    case "c":
+                    System.out.print("Enter Message ID: ");
+                    String searchID = sc.nextLine();
+                    System.out.println(searchByMessageID(searchID));
+                    break;
+                case "d":
+                    System.out.print("Enter recipient number: ");
+                    String searchRecipient = sc.nextLine();
+                    System.out.println(searchByRecipient(searchRecipient));
+                    break;
+                case "e":
+                    System.out.print("Enter message hash to delete: ");
+                    String hash = sc.nextLine();
+                    System.out.println(deleteMessage(hash));
+                    break;
+                case "f":
+                    System.out.println(displayReport());
+                    break;
+                case "0":
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+                    input = "";
+            }
+            subChoice = input.equals("0") ? 0 : 1;
+        } while (subChoice != 0);
+            }
+       //loops through sentMessages and prints each with hash 
+    public static void displayAllSentMessages(){
+    if (sentMessages.isEmpty()){
+        System.out.println(" No sent messages yet.");
+        return;
+    }
+            System.out.println("\n--- Sent Messages ---");
+            for (Message msg:sentMessages){
+                System.out.println(msg.printMessages());
+                System.out.println("----------------------");
+            }
+    
+}
+    // loops through storedMessages and prints each
+  public static void displayStoredMessages() {
+      if (storedMessages.isEmpty()) {
+          System.out.println("No stored messages yet.");
+          return;
+      }
+       System.out.println("\n--- Stored Messages ---");
+       for (Message msg : storedMessages){
+           System.out.println(msg.printMessages());
+           System.out.println("-----------------------");
+       }
+  }   
+ //searches sent + stored , finds longest message text   
+public static String displayLongestMessage(){
+    ArrayList<Message> allMessages = new ArrayList<>();
+        allMessages.addAll(sentMessages);
+        allMessages.addAll(storedMessages);
+
+        if (allMessages.isEmpty()) {
+            return "No messages found.";
+        }
+
+        Message longest = allMessages.get(0);
+        for (Message msg : allMessages) {
+            if (msg.message.length() > longest.message.length()) {
+                longest = msg;
+            }
+        }
+        return "Longest message: " + longest.message;
+    }
+//searches all messages by ID, RETURNS reciepient + message
+public static String searchByMessageID(String id){
+    ArrayList<Message>allMessages= new ArrayList<>();
+    allMessages.addAll(sentMessages);
+    allMessages.addAll(storedMessages);
+    
+    for (Message msg : allMessages ){
+        if (msg.messageID.equals(id)){
+            return "Recipient:" + msg.recipient + "\nMessage:" + msg.message;
+        }
+    }
+    return "Message ID not found.";
+}
+
+//searches all messages by reciepient number
+public static String searchByRecipient(String recipient){
+    ArrayList<Message> allMessages = new ArrayList<>();
+    allMessages.addAll(sentMessages);
+    allMessages.addAll(storedMessages);
+    
+    StringBuilder results = new StringBuilder();
+    for (Message msg : allMessages) {
+        if (msg.recipient.equals(recipient)) {
+            results.append(msg.printMessages()).append ("\n-----------------\n");
+        }
+    }
+    if (results.length()==0){
+        return "No messages found for recipient:" + recipient ;
+    }
+    return results.toString();  
+}
+//deletes message from sent or stored using hash
+public static String deleteMessage(String hash) {
+    // Search for sent messages
+    for(int i = 0; i< sentMessages.size(); i++) {
+        if (sentMessages.get(i).messageHash.equals(hash)){
+            String deleteMsg = sentMessages.get(i).message;
+            sentMessages.remove(i);
+            messageHashArray.remove(hash);
+            saveToJSON();
+            return "Message: \" " + deleteMsg + "\" successfully deleted.";
+            
+        }
+    }
+   //search stored messages
+   for (int i = 0; i < storedMessages.size(); i++){
+       if (storedMessages.get(i).messageHash.equals(hash)){
+           String deleteMsg = storedMessages.get(i).message;
+            storedMessages.remove(i);
+            messageHashArray.remove(hash);
+            saveToJSON();
+            return "Message: \" " + deleteMsg + "\" successfully deleted.";
+               
+       }
+   }
+    return "Message hash not found.";
+}
+ 
+    public static String displayReport(){
+        if (sentMessages.isEmpty()){
+            return "No sent messages to report.";
+        }
+        StringBuilder report = new StringBuilder();
+        report.append("\n====== MESSAGE REPORT ======\n");
+        for (Message msg : sentMessages) {
+            report.append("Message Hash: ").append(msg.messageHash).append("\n");
+            report.append("Recipient:    ").append(msg.recipient).append("\n");
+            report.append("Message:      ").append(msg.message).append("\n");
+            report.append("----------------------------\n");
+        }
+        return report.toString();
+        }
+    
+
 
     //Properties of each message
     private String messageID;
@@ -118,6 +291,7 @@ public class Message {
     private String recipient;
     private String message;
     private String messageHash;
+    private String flag;
 
     public Message(String recipient, String message, int numMessage) {
         this.recipient = recipient;
@@ -125,6 +299,7 @@ public class Message {
         this.numMessage = numMessage;
         this.messageID = generateMessageID();
         this.messageHash = createMessageHash();
+        this.flag = "Pending";
     }
 
     // generates a random 10 digit number
@@ -164,16 +339,28 @@ public class Message {
     public String SentMessage(String action) {
         switch (action.toLowerCase()) {
             case "send":
+                this.flag= "Sent";
                 sentMessages.add(this);
                 totalMessagesSent++;
+                messageHashArray.add(this.messageHash);
+                messageIDArray.add(this.messageID);
                 saveToJSON();
                 return "Message successfully sent.";
 
             case "store":
-                storeMessage();
+                this.flag= "Stored";
+                storedMessages.add(this);
+               
+                messageHashArray.add(this.messageHash);
+                messageIDArray.add(this.messageID);
+                saveToJSON();
                 return "Message successfully stored.";
 
+                
+                
             case "discard":
+                this.flag = "Disregarded";
+                disregardedMessages.add(this);
                 return "Press 0 to delete the message";
 
             default:
@@ -184,7 +371,7 @@ public class Message {
     // output of processed messages
     public String printMessages() {
         return "Message ID: " + messageID + "\nMessage Hash: " + messageHash + "\nRecipient: "
-                + recipient + "\nMessage: " + message;
+                + recipient + "\nMessage: " + message +"\nFlag:" + flag;
     }
 
     // returns total number of messages sent
@@ -194,7 +381,11 @@ public class Message {
 
     // stores messages
     public void storeMessage() {
-        sentMessages.add(this);
+        this.flag = "Stored";
+        
+        storedMessages.add(this);
+        messageHashArray.add(this.messageHash);
+        messageIDArray.add(this.messageID);
         saveToJSON();
     }
 
@@ -206,11 +397,28 @@ public class Message {
     public String getMessageID() {
         return messageID;
     }
+    public String getMessageHash(){
+        return messageHash;
+    }
+public String getMessage() {
+    return message;
+    
+}
 
+public String getRecipient(){
+    return recipient;
+}
+
+public String getFlag(){
+    return flag;
+}
     // saving to json
-    private void saveToJSON() {
+    private static void saveToJSON() {
         try (FileWriter writer = new FileWriter(STORAGE_FILE)) {
-            gson.toJson(sentMessages, writer);
+            ArrayList<Message>allToSave = new ArrayList<>();
+            allToSave.addAll(sentMessages);
+            allToSave.addAll(storedMessages);
+            gson.toJson(allToSave, writer);
         } catch (IOException e) {
             System.out.println("Error saving to JSON: " + e.getMessage());
         }
@@ -224,10 +432,21 @@ public class Message {
             ArrayList<Message> loaded = gson.fromJson(reader, listType);
 
             if (loaded != null) {
-                sentMessages = loaded;
+               for (Message msg : loaded) {
+                    if ("Sent".equals(msg.flag)) {
+                        sentMessages.add(msg);
+                        messageHashArray.add(msg.messageHash);
+                        messageIDArray.add(msg.messageID);
+                    } else if ("Stored".equals(msg.flag)) {
+                        storedMessages.add(msg);
+                        messageHashArray.add(msg.messageHash);
+                        messageIDArray.add(msg.messageID);
+                    }
+                }
             }
         } catch (IOException e) {
             sentMessages = new ArrayList<>();
+            storedMessages = new ArrayList<>();
         }
     }
 
